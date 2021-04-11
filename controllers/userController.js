@@ -21,7 +21,7 @@ const changeProfileByID = async (req, res, next) => {
   );
 };
 const updateUserByID = async (req, res, next) => {
-  const { userName, email, city } = req.body;
+  const { userName, email, country } = req.body;
   User.findOneAndUpdate(
     {
       id: req.params.id,
@@ -30,7 +30,7 @@ const updateUserByID = async (req, res, next) => {
     {
       userName: userName,
       email: email,
-      city: city,
+      country: country,
     },
     {
       new: true,
@@ -72,7 +72,7 @@ const getUserDetailsByID = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   // TODO: Validate req body data.
-  const { userName, email, city, imageLink } = req.body;
+  const { userName, email, country, imageLink } = req.body;
   const existentUser = await User.findOne({ email }).catch(() => {
     return next(CustomError(500, 'internal error'));
   });
@@ -80,7 +80,7 @@ const register = async (req, res, next) => {
     next(new CustomError(400, 'email already exists'));
     return;
   }
-  const user = new User({ userName, email, city, imageLink });
+  const user = new User({ userName, email, country, imageLink });
   await user.save();
   res.send('user added successfully');
 };
