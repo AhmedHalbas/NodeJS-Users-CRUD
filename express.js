@@ -6,7 +6,7 @@ const initMongoose = require('./initMongoose');
 const apiRouter = require('./routers/api');
 const errorHandler = require('./middleware/errorHandler');
 const cors = require('cors');
-
+const port = process.env.PORT | 3000;
 const app = express();
 
 app.use(express.json());
@@ -19,7 +19,7 @@ app.use('/api', apiRouter);
 app.use(errorHandler);
 
 initMongoose().then(() => {
-  app.listen(3000, () => {
-    console.log('started listening on port 3000');
+  app.listen(port, () => {
+    console.log(`started listening on port ${port}`);
   });
 });
