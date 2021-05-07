@@ -61,7 +61,7 @@ const deleteUserByID = async (req, res, next) => {
 const getAllUsers = async (req, res, next) => {
   res.send(
     await User.find({
-      userName: { $regex: req.query.name_like, $options: 'i' },
+      userName: { $regex: new RegExp(req.query.name_like), $options: 'i' },
     })
   );
 };
